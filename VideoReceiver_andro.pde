@@ -1,4 +1,5 @@
 import java.awt.image.*; 
+import android.graphics.*;
 import javax.imageio.*;
 import java.io.*;
 import java.net.*;
@@ -19,11 +20,13 @@ int m_retryCount = 3;
 int m_retryDelay = 3000;
 boolean m_debug = false;
 ExceptionReporter fufu = null;
-Image klatkaimage = null;
+//Image klatkaimage = null;
+Bitmap klatkaimage = null;
 
 
 void setup() {
-  size(400,300);
+  //size(400,300);
+  size(displayWidth, displayHeight);
   //m_mainURL=new URL("192.168.0.105");
   String addd= "http://192.168.0.105:8080/?action=stream";
   try {

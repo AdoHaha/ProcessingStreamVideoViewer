@@ -24,7 +24,7 @@
 
 import java.awt.Image;
 //import java.awt.Toolkit;
-import android.graphics;
+import android.graphics.*;
 import java.awt.image.ImageObserver;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -43,8 +43,8 @@ public class CamStream extends Thread {
 
     private ExceptionReporter m_reporter = null;
 	private Vector m_listeners;
-	private Image m_imain = null;
-	private BitmapFcatory m_tk; 
+	private Bitmap m_imain = null;
+	//private BitmapFactory m_tk; 
         //m_tk;
 	private URL m_stream;
     private String m_userpassEncoded;
@@ -63,7 +63,7 @@ public class CamStream extends Thread {
 
     public CamStream(URL strm, String app, URL docBase, int retryCount, int retryDelay, ExceptionReporter reporter, boolean debug)
 	{
-		m_tk = Toolkit.getDefaultToolkit();
+		// m_tk = Toolkit.getDefaultToolkit();
 		m_listeners = new Vector();
         //
         // Pull open stream - look for user/password.
@@ -88,7 +88,7 @@ public class CamStream extends Thread {
 	}
 
 
-	public synchronized Image getCurrent()
+	public synchronized Bitmap getCurrent()
 	{
 		return m_imain;
 	}
@@ -367,11 +367,12 @@ public class CamStream extends Thread {
 		//
         m_imageType = ctype;
         //m_imain = m_tk.createImage(img);
-        m_imain = BitmapFactory.decodeByteArray(img);
+        m_imain = BitmapFactory.decodeByteArray(img,0,img.length);
         m_rawImage = img;
         m_imgidx++;
 
-        m_imain.getWidth(new ImageObserver()
+        m_imain.getWidth();
+        /*new ImageObserver()
         {
             public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height)
             {
@@ -381,7 +382,7 @@ public class CamStream extends Thread {
                 }
                 return !fully;
             }
-        });
+        });*/
 	}
 
 	public void finalize() throws Throwable
